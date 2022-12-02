@@ -1,3 +1,9 @@
+
+function customSlicedText (element, content){
+    element.innerHTML = `<div class="top">${content}</div> <div class="bottom">${content}</div>`;
+}
+
+
 const milliseconds = document.getElementById('ms');
 const seconds = document.getElementById('seconds');
 const minutes = document.getElementById('minutes');
@@ -11,15 +17,20 @@ let second = 0;
 let minute = 0;
 let hour = 0;
 
+let stopSound = new Audio('stop.mp3');
+let timerSound = new Audio('clock.mp3');
+let pauseSound = new Audio ('time-up.mp3');
+
+
+
 
 start.addEventListener('click', function(){
-   
-
     if(!conditionTimer){
+        timerSound.play();
         conditionTimer = true;
         const timer = setInterval(() => {
-            milliseconds.innerHTML = millisecond += 10;
-           
+            millisecond += 10;
+            customSlicedText(milliseconds, millisecond);
             if(millisecond == 90){
                 millisecond = 0;
                 second++;
@@ -32,27 +43,34 @@ start.addEventListener('click', function(){
                 minute = 0;
                 hour++;
             }
-
-            seconds.innerHTML = second;
-            minutes.innerHTML = minute;
-            hours.innerHTML = hour;
+            
+            customSlicedText(seconds, second);
+            customSlicedText(minutes, minute);
+            customSlicedText(hours, hour);
         }, 90);  
 
         pause.addEventListener('click', function(){
             clearInterval(timer);
             conditionTimer = false;
+            timerSound.pause();
+            stopSound.pause();
+            pauseSound.play();
         })
         
         reset.addEventListener('click', function(){
-            milliseconds.innerHTML = 0;
-            seconds.innerHTML = 0;
-            minutes.innerHTML = 0;
-            hours.innerHTML = 0;
+            stopSound.play();
+            timerSound.pause();
+            customSlicedText(milliseconds, millisecond);
+            customSlicedText(seconds, second);
+            customSlicedText(minutes, minute);
+            customSlicedText(hours, hour);
             second = 0;
             millisecond = 0;
             minute = 0;
             hour = 0;
         })
     }
-
+    stopSound.pause();
 })
+
+
