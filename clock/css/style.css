@@ -1,0 +1,14 @@
+/* body{
+  background-color: aqua;
+} */
+
+#hours,
+#minutes,
+#seconds,
+#ms {
+  font-size: 4em;
+
+}
+
+
+
