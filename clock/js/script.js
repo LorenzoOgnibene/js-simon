@@ -58,6 +58,7 @@ start.addEventListener('click', function(){
         })
         
         reset.addEventListener('click', function(){
+            clearInterval(timer);
             stopSound.play();
             timerSound.pause();
             customSlicedText(milliseconds, millisecond);
